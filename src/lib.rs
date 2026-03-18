@@ -1,6 +1,16 @@
 use std::{env, fs, io::Error, path::{Path, PathBuf}, process::Command};
+use thiserror::Error;
 
 pub mod document;
+
+#[derive(Error, Debug)]
+pub enum MyAppError {
+    #[error("dir not found ")]
+    NotFound,
+    
+    #[error("Network failure: {0}")]
+    Disconnect(String),
+}
 
 pub fn pshell() {
   let status = Command::new("powershell")
